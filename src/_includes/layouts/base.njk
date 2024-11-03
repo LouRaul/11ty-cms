@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="{{ site.locale or 'en' }}" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if title %}{{ title }} | {% endif %}{{ site.name }}</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="{{ description or site.description }}">
+    <meta name="author" content="{{ site.author.name }}">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% if title %}{{ title }} | {% endif %}{{ site.name }}">
+    <meta property="og:description" content="{{ description or site.description }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    {% if image %}
+    <meta property="og:image" content="{{ site.url }}{{ image }}">
+    {% endif %}
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="{{ site.social.twitter }}">
+    <meta name="twitter:title" content="{% if title %}{{ title }} | {% endif %}{{ site.name }}">
+    <meta name="twitter:description" content="{{ description or site.description }}">
+    {% if image %}
+    <meta name="twitter:image" content="{{ site.url }}{{ image }}">
+    {% endif %}
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Preload Assets -->
+    <link rel="preload" href="/assets/css/style.css" as="style">
+    <link rel="preload" href="/assets/js/alpine.js" as="script">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    
+    <!-- Alpine.js -->
+    <script defer src="/assets/js/alpine.js"></script>
+
+    <!-- Netlify Identity -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    {% if page.url === "/" %}
+    <!-- Schema.org for Homepage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "{{ site.name }}",
+        "description": "{{ site.description }}",
+        "url": "{{ site.url }}"
+      }
+    </script>
+    {% endif %}
+
+    {% if layout === "product.njk" %}
+    <!-- Schema.org for Products -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "{{ title }}",
+        "description": "{{ description }}",
+        "image": "{{ site.url }}{{ image }}",
+        "sku": "{{ sku }}",
+        "brand": {
+          "@type": "Brand",
+          "name": "{{ site.name }}"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "{{ price }}",
+          "priceCurrency": "USD",
+          "availability": "{% if status === 'in-stock' %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
+        }
+      }
+    </script>
+    {% endif %}
+</head>
+<body class="h-full flex flex-col bg-gray-50">
+    <!-- Skip Link -->
+    <a href="#main-content" 
+       class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-white text-blue-600 p-4">
+        Skip to main content
+    </a>
+
+    <!-- Header -->
+    {% include "partials/header.njk" %}
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-grow">
+        {{ content | safe }}
+    </main>
+
+    <!-- Footer -->
+    {% include "partials/footer.njk" %}
+
+    <!-- Netlify Identity Redirect -->
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+
+    <!-- Alpine.js Init -->
+    <script>
+      document.addEventListener('alpine:init', () => {
+        Alpine.store('cart', {
+          items: [],
+          isOpen: false,
+          
+          init() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+              this.items = JSON.parse(savedCart);
+            }
+          }
+        });
+      });
+    </script>
+
+    {% if env.NODE_ENV === "production" and site.analytics.plausible.enabled %}
+    <!-- Plausible Analytics -->
+    <script defer data-domain="{{ site.analytics.plausible.domain }}" src="https://plausible.io/js/plausible.js"></script>
+    {% endif %}
+</body>
+</html>

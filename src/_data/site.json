@@ -1,0 +1,47 @@
+{
+    "name": "Eco Store",
+    "description": "Your destination for sustainable and eco-friendly products",
+    "url": "https://example.com",
+    "locale": "en",
+    "author": {
+      "name": "Your Name",
+      "email": "your@email.com"
+    },
+    "social": {
+      "twitter": "ecostore",
+      "facebook": "EcoStore",
+      "instagram": "eco.store"
+    },
+    "seo": {
+      "baseTitle": "Eco Store - Sustainable Living Made Simple",
+      "defaultDescription": "Discover our collection of eco-friendly and sustainable products for a better tomorrow.",
+      "defaultImage": "/assets/images/default-social.jpg",
+      "twitterHandle": "@ecostore"
+    },
+    "features": {
+      "products": {
+        "itemsPerPage": 12,
+        "sortOptions": [
+          { "label": "Price: Low to High", "value": "price-asc" },
+          { "label": "Price: High to Low", "value": "price-desc" },
+          { "label": "Latest", "value": "date-desc" },
+          { "label": "Name: A-Z", "value": "name-asc" },
+          { "label": "Name: Z-A", "value": "name-desc" }
+        ]
+      },
+      "blog": {
+        "postsPerPage": 6
+      },
+      "newsletter": {
+        "enabled": true,
+        "provider": "mailchimp",
+        "formAction": "https://yoursite.us1.list-manage.com/subscribe/post?u=XXXXX&amp;id=XXXXX"
+      }
+    },
+    "analytics": {
+      "plausible": {
+        "enabled": false,
+        "domain": "example.com"
+      }
+    }
+  }

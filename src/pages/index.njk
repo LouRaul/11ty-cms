@@ -1,0 +1,139 @@
+---
+layout: layouts/base.njk
+title: Welcome to {{ site.name }}
+description: Discover our collection of eco-friendly and sustainable products. From kitchen essentials to personal care items, find everything you need for a more sustainable lifestyle.
+eleventyNavigation:
+  key: Home
+  order: 1
+---
+
+{# Hero Section #}
+{% include "partials/hero.njk" %}
+
+{# Featured Categories #}
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">Shop by Category</h2>
+            <p class="text-gray-600">Explore our curated collection of sustainable products across different categories.</p>
+        </div>
+        {% include "partials/categories-grid.njk" %}
+    </div>
+</section>
+
+{# Highlight Banner #}
+<section class="bg-green-600 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+            <div>
+                <div class="flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                </div>
+                <h3 class="font-bold mb-2">Free Shipping</h3>
+                <p class="text-sm">On orders over $50</p>
+            </div>
+            <div>
+                <div class="flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
+                    </svg>
+                </div>
+                <h3 class="font-bold mb-2">Eco-Friendly</h3>
+                <p class="text-sm">Sustainable materials</p>
+            </div>
+            <div>
+                <div class="flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                </div>
+                <h3 class="font-bold mb-2">Quality Guaranteed</h3>
+                <p class="text-sm">30-day money back</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Featured Products #}
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">Featured Products</h2>
+            <p class="text-gray-600">Our most popular sustainable products, carefully selected for you.</p>
+        </div>
+        {% include "partials/featured-products.njk" %}
+    </div>
+</section>
+
+{# Sustainability Impact #}
+<section class="bg-gray-50 py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">Our Impact</h2>
+            <p class="text-gray-600">Together with our customers, we're making a difference.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+            <div>
+                <div class="text-4xl font-bold text-green-600 mb-2">5K+</div>
+                <p class="text-gray-600">Plastic bottles saved</p>
+            </div>
+            <div>
+                <div class="text-4xl font-bold text-green-600 mb-2">1000+</div>
+                <p class="text-gray-600">Trees planted</p>
+            </div>
+            <div>
+                <div class="text-4xl font-bold text-green-600 mb-2">10K+</div>
+                <p class="text-gray-600">Happy customers</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Recent Blog Posts #}
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">Latest from Our Blog</h2>
+            <p class="text-gray-600">Tips and insights for sustainable living.</p>
+        </div>
+        {% include "partials/recent-posts.njk" %}
+    </div>
+</section>
+
+{# Testimonials #}
+<section class="bg-gray-50 py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">What Our Customers Say</h2>
+            <p class="text-gray-600">Don't just take our word for it.</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <div class="flex items-center mb-4">
+                    <div class="text-yellow-400">★★★★★</div>
+                </div>
+                <p class="text-gray-600 mb-4">"Great quality products and excellent customer service. Will definitely be ordering again!"</p>
+                <div class="font-medium">Sarah M.</div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <div class="flex items-center mb-4">
+                    <div class="text-yellow-400">★★★★★</div>
+                </div>
+                <p class="text-gray-600 mb-4">"Love how everything is eco-friendly and sustainably sourced. Makes shopping guilt-free!"</p>
+                <div class="font-medium">James K.</div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <div class="flex items-center mb-4">
+                    <div class="text-yellow-400">★★★★★</div>
+                </div>
+                <p class="text-gray-600 mb-4">"The products have helped me reduce my plastic waste significantly. Thank you!"</p>
+                <div class="font-medium">Emma R.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Newsletter #}
+{% include "partials/newsletter.njk" %}

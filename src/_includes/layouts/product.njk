@@ -1,0 +1,236 @@
+---
+layout: layouts/base.njk
+---
+
+<article class="min-h-screen bg-white"
+         x-data="{ 
+           activeTab: 'description',
+           activeImage: '{{ image }}',
+           quantity: 1
+         }">
+    <!-- Breadcrumb -->
+    <nav class="container mx-auto px-4 py-4 text-sm" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+            <li>
+                <a href="/" class="text-gray-600 hover:text-gray-900">Home</a>
+            </li>
+            <li class="text-gray-400">/</li>
+            <li>
+                <a href="/categories/{{ category }}" class="text-gray-600 hover:text-gray-900">{{ category | title }}</a>
+            </li>
+            <li class="text-gray-400">/</li>
+            <li class="text-gray-900" aria-current="page">{{ title }}</li>
+        </ol>
+    </nav>
+
+    <!-- Product Details -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid md:grid-cols-2 gap-12">
+            <!-- Product Images -->
+            <div>
+                <div class="aspect-w-1 aspect-h-1 bg-gray-100 rounded-lg overflow-hidden mb-4">
+                    <img 
+                        :src="activeImage"
+                        :alt="title"
+                        class="object-cover w-full h-full"
+                        width="600"
+                        height="600"
+                    >
+                </div>
+                {% if productImages %}
+                <div class="grid grid-cols-4 gap-4">
+                    {% for img in productImages %}
+                    <button 
+                        @click="activeImage = '{{ img }}'"
+                        class="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden"
+                        :class="{ 'ring-2 ring-green-500': activeImage === '{{ img }}' }"
+                    >
+                        <img 
+                            src="{{ img }}"
+                            alt="{{ title }}"
+                            class="object-cover"
+                            width="150"
+                            height="150"
+                            loading="lazy"
+                        >
+                    </button>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Product Info -->
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ title }}</h1>
+                
+                <!-- Price and Status -->
+                <div class="flex items-center justify-between mb-6">
+                    <div class="text-2xl font-bold text-gray-900">{{ price | formatPrice }}</div>
+                    <div class="text-sm">
+                        {% if status === "in-stock" %}
+                        <span class="text-green-600">In Stock</span>
+                        {% else %}
+                        <span class="text-red-600">Out of Stock</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Short Description -->
+                <div class="text-gray-600 mb-6">{{ shortDescription }}</div>
+
+                <!-- Add to Cart -->
+                {% if status === "in-stock" %}
+                <div class="mb-8">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <label for="quantity" class="sr-only">Quantity</label>
+                        <select 
+                            id="quantity"
+                            x-model="quantity"
+                            class="rounded-lg border-gray-300 focus:ring-green-500 focus:border-green-500"
+                        >
+                            {% for i in range(1, 10) %}
+                            <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                        <button 
+                            @click="$store.cart.addItem({
+                                id: '{{ sku }}',
+                                title: '{{ title }}',
+                                price: {{ price }},
+                                image: '{{ image }}',
+                                quantity: quantity
+                            })"
+                            class="flex-grow bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
+                        >
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Features -->
+                <div class="border-t border-b border-gray-200 py-6 mb-6">
+                    <h2 class="text-lg font-bold mb-4">Key Features</h2>
+                    <ul class="space-y-2">
+                        {% for feature in features %}
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            {{ feature }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Tabs -->
+                <div>
+                    <div class="border-b border-gray-200">
+                        <nav class="flex space-x-8" aria-label="Product information tabs">
+                            <button
+                                @click="activeTab = 'description'"
+                                :class="{ 'border-b-2 border-green-600': activeTab === 'description' }"
+                                class="py-4 text-sm font-medium"
+                            >
+                                Description
+                            </button>
+                            <button
+                                @click="activeTab = 'specs'"
+                                :class="{ 'border-b-2 border-green-600': activeTab === 'specs' }"
+                                class="py-4 text-sm font-medium"
+                            >
+                                Specifications
+                            </button>
+                            <button
+                                @click="activeTab = 'sustainability'"
+                                :class="{ 'border-b-2 border-green-600': activeTab === 'sustainability' }"
+                                class="py-4 text-sm font-medium"
+                            >
+                                Sustainability
+                            </button>
+                        </nav>
+                    </div>
+
+                    <div class="py-6">
+                        <!-- Description -->
+                        <div x-show="activeTab === 'description'" class="prose">
+                            {{ content | safe }}
+                        </div>
+
+                        <!-- Specifications -->
+                        <div x-show="activeTab === 'specs'">
+                            <dl class="divide-y divide-gray-200">
+                                {% for key, value in specs %}
+                                <div class="py-3 flex justify-between">
+                                    <dt class="font-medium text-gray-900">{{ key | title }}</dt>
+                                    <dd class="text-gray-600">{{ value }}</dd>
+                                </div>
+                                {% endfor %}
+                            </dl>
+                        </div>
+
+                        <!-- Sustainability -->
+                        <div x-show="activeTab === 'sustainability'">
+                            <div class="space-y-6">
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">Materials</h3>
+                                    <ul class="list-disc pl-5">
+                                        {% for material in sustainability.materials %}
+                                        <li>{{ material }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">Packaging</h3>
+                                    <p>{{ sustainability.packaging }}</p>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">End of Life</h3>
+                                    <p>{{ sustainability.endOfLife }}</p>
+                                </div>
+                                {% if certifications %}
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">Certifications</h3>
+                                    <ul class="list-disc pl-5">
+                                        {% for cert in certifications %}
+                                        <li>{{ cert }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Products -->
+        {% if relatedProducts %}
+        <div class="mt-12">
+            <h2 class="text-2xl font-bold mb-6">You May Also Like</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {% for productSlug in relatedProducts %}
+                {% set product = collections.products | where("slug", productSlug) | first %}
+                {% if product %}
+                <a href="{{ product.url }}" class="group">
+                    <div class="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden mb-4">
+                        <img 
+                            src="{{ product.data.image }}"
+                            alt="{{ product.data.title }}"
+                            class="object-cover transition duration-300 group-hover:scale-105"
+                            width="300"
+                            height="300"
+                            loading="lazy"
+                        >
+                    </div>
+                    <h3 class="font-medium text-gray-900">{{ product.data.title }}</h3>
+                    <p class="text-gray-600">{{ product.data.price | formatPrice }}</p>
+                </a>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</article>

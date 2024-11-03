@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+    <!-- Include Tailwind CSS for preview styles -->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Preview Styles -->
+    <style>
+      /* Custom preview styles */
+      [data-slate-editor] {
+        -webkit-font-smoothing: antialiased;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+      }
+      
+      /* Preview frame styles */
+      .frame-content {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+      
+      /* Product preview styles */
+      .product-preview img {
+        max-width: 100%;
+        height: auto;
+      }
+      
+      /* Blog post preview styles */
+      .blog-preview {
+        max-width: 768px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Custom Preview Components -->
+    <script>
+      // Product Preview Component
+      const ProductPreview = createClass({
+        render: function() {
+          const entry = this.props.entry;
+          const image = entry.getIn(['data', 'image']);
+          
+          return h('div', {"className": "product-preview"},
+            h('h1', {}, entry.getIn(['data', 'title'])),
+            h('img', {src: image}),
+            h('div', {"className": "price"}, `$${entry.getIn(['data', 'price'])}`),
+            h('div', {"className": "description"}, entry.getIn(['data', 'description']))
+          );
+        }
+      });
+
+      // Blog Preview Component
+      const BlogPreview = createClass({
+        render: function() {
+          const entry = this.props.entry;
+          const image = entry.getIn(['data', 'image']);
+          
+          return h('div', {"className": "blog-preview"},
+            h('h1', {}, entry.getIn(['data', 'title'])),
+            h('div', {"className": "meta"},
+              h('span', {}, entry.getIn(['data', 'date'])),
+              h('span', {}, ` by ${entry.getIn(['data', 'author'])}`)
+            ),
+            h('img', {src: image}),
+            h('div', {"className": "content"}, this.props.widgetFor('body'))
+          );
+        }
+      });
+
+      // Register Preview Templates
+      CMS.registerPreviewTemplate('products', ProductPreview);
+      CMS.registerPreviewTemplate('blog', BlogPreview);
+
+      // Custom Preview Styles
+      CMS.registerPreviewStyle("/assets/css/style.css");
+
+      // Initialize the CMS
+      CMS.init();
+    </script>
+  </body>
+</html>

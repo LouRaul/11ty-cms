@@ -1,0 +1,159 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Media and public folder configuration
+media_folder: "src/assets/images"
+public_folder: "/assets/images"
+
+# Editorial workflow
+publish_mode: editorial_workflow
+
+# Site URL - replace with your site's URL
+site_url: https://your-site-url.com
+
+# Custom preview styles
+local_backend: true
+
+collections:
+  # Products Collection
+  - name: "products"
+    label: "Products"
+    folder: "src/products"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "products/{{slug}}"
+    editor:
+      preview: true
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Layout", name: "layout", widget: "hidden", default: "product.njk"}
+      - {label: "Featured Image", name: "image", widget: "image"}
+      - {label: "Price", name: "price", widget: "number", value_type: "float", min: 0}
+      - {label: "SKU", name: "sku", widget: "string"}
+      - {label: "Category", name: "category", widget: "relation", collection: "categories", search_fields: ["title"], value_field: "{{slug}}", display_fields: ["title"]}
+      - {label: "Subcategory", name: "subcategory", widget: "string"}
+      - {label: "Status", name: "status", widget: "select", options: ["in-stock", "out-of-stock", "coming-soon"]}
+      - {label: "Featured", name: "featured", widget: "boolean", default: false}
+      - {label: "New", name: "new", widget: "boolean", default: false}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Short Description", name: "shortDescription", widget: "string"}
+      - {label: "Features", name: "features", widget: "list"}
+      - {label: "Specifications", name: "specs", widget: "object", fields: [
+          {label: "Weight", name: "weight", widget: "string"},
+          {label: "Dimensions", name: "dimensions", widget: "string"},
+          {label: "Material", name: "material", widget: "string"},
+          {label: "Capacity", name: "capacity", widget: "text", required: false}
+        ]}
+      - {label: "Care Instructions", name: "care", widget: "markdown"}
+      - {label: "Warranty", name: "warranty", widget: "string"}
+      - {label: "Related Products", name: "relatedProducts", widget: "list", required: false}
+      - {label: "Sustainability", name: "sustainability", widget: "object", fields: [
+          {label: "Materials", name: "materials", widget: "list"},
+          {label: "Packaging", name: "packaging", widget: "string"},
+          {label: "End of Life", name: "endOfLife", widget: "string"}
+        ]}
+      - {label: "Certifications", name: "certifications", widget: "list", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  # Categories Collection
+  - name: "categories"
+    label: "Categories"
+    folder: "src/categories"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "categories/{{slug}}"
+    editor:
+      preview: true
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Layout", name: "layout", widget: "hidden", default: "page.njk"}
+      - {label: "Featured Image", name: "image", widget: "image"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Featured", name: "featured", widget: "boolean", default: false}
+      - {label: "Order", name: "order", widget: "number", value_type: "int"}
+      - {label: "Pagination", name: "paginate", widget: "object", fields: [
+          {label: "Size", name: "size", widget: "number", default: 12},
+          {label: "Alias", name: "alias", widget: "string", default: "products"}
+        ]}
+      - {label: "Filters", name: "filters", widget: "list", fields: [
+          {label: "Name", name: "name", widget: "string"},
+          {label: "Type", name: "type", widget: "select", options: ["range", "select"]},
+          {label: "Field", name: "field", widget: "string"},
+          {label: "Options", name: "options", widget: "list", required: false}
+        ]}
+      - {label: "Highlights", name: "highlights", widget: "list", fields: [
+          {label: "Title", name: "title", widget: "string"},
+          {label: "Icon", name: "icon", widget: "string"},
+          {label: "Description", name: "description", widget: "string"}
+        ]}
+      - {label: "Subcategories", name: "subcategories", widget: "list", fields: [
+          {label: "Title", name: "title", widget: "string"},
+          {label: "URL", name: "url", widget: "string"},
+          {label: "Image", name: "image", widget: "image"}
+        ]}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  # Blog Posts Collection
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "blog/{{slug}}"
+    editor:
+      preview: true
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Layout", name: "layout", widget: "hidden", default: "post.njk"}
+      - {label: "Featured Image", name: "image", widget: "image"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Author", name: "author", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Tags", name: "tags", widget: "list"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  # Pages Collection (for contact and other static pages)
+  - name: "pages"
+    label: "Pages"
+    folder: "src/pages"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Layout", name: "layout", widget: "hidden", default: "page.njk"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  # Site Settings
+  - name: "settings"
+    label: "Settings"
+    files:
+      # Contact Information
+      - name: "contact"
+        label: "Contact Information"
+        file: "src/_data/contact.json"
+        fields:
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "Phone", name: "phone", widget: "string"}
+          - {label: "Address", name: "address", widget: "text"}
+          - {label: "Business Hours", name: "hours", widget: "text"}
+          - {label: "Social Media", name: "social", widget: "object", fields: [
+              {label: "Facebook", name: "facebook", widget: "string"},
+              {label: "Twitter", name: "twitter", widget: "string"},
+              {label: "Instagram", name: "instagram", widget: "string"}
+            ]}
+
+      # Site Information
+      - name: "site"
+        label: "Site Information"
+        file: "src/_data/site.json"
+        fields:
+          - {label: "Site Name", name: "name", widget: "string"}
+          - {label: "Description", name: "description", widget: "text"}
+          - {label: "URL", name: "url", widget: "string"}
+          - {label: "Author", name: "author", widget: "object", fields: [
+              {label: "Name", name: "name", widget: "string"},
+              {label: "Email", name: "email", widget: "string"}
+            ]}

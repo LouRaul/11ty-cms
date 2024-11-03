@@ -1,0 +1,46 @@
+<section class="relative bg-gray-900 text-white">
+    <!-- Background Image -->
+    {% if hero.image %}
+    <div class="absolute inset-0">
+        <img 
+            src="{{ hero.image }}" 
+            alt=""
+            class="w-full h-full object-cover"
+            width="1920"
+            height="1080"
+        >
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    </div>
+    {% endif %}
+
+    <!-- Content -->
+    <div class="relative container mx-auto px-4 py-20">
+        <div class="max-w-2xl">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                {{ hero.title or "Welcome to " + site.name }}
+            </h1>
+            
+            {% if hero.description %}
+            <p class="text-xl mb-8">
+                {{ hero.description }}
+            </p>
+            {% endif %}
+
+            {% if hero.buttons %}
+            <div class="flex flex-wrap gap-4">
+                {% for button in hero.buttons %}
+                <a href="{{ button.url }}" 
+                   class="inline-flex items-center px-6 py-3 rounded-lg {% if button.primary %}bg-green-600 hover:bg-green-700{% else %}bg-white text-gray-900 hover:bg-gray-100{% endif %} transition-colors duration-200">
+                    {{ button.text }}
+                    {% if button.icon %}
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                    {% endif %}
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

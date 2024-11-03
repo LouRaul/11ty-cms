@@ -1,0 +1,165 @@
+{
+    "main": [
+      {
+        "title": "Home",
+        "url": "/"
+      },
+      {
+        "title": "Shop",
+        "url": "/products",
+        "children": [
+          {
+            "title": "All Products",
+            "url": "/products"
+          },
+          {
+            "title": "Categories",
+            "url": "/categories"
+          },
+          {
+            "title": "New Arrivals",
+            "url": "/products/new"
+          },
+          {
+            "title": "Best Sellers",
+            "url": "/products/best-sellers"
+          }
+        ]
+      },
+      {
+        "title": "Categories",
+        "url": "/categories",
+        "children": [
+          {
+            "title": "Kitchen & Dining",
+            "url": "/categories/kitchen-dining"
+          },
+          {
+            "title": "Bath & Beauty",
+            "url": "/categories/bath-beauty"
+          },
+          {
+            "title": "Home & Living",
+            "url": "/categories/home-living"
+          },
+          {
+            "title": "Accessories",
+            "url": "/categories/accessories"
+          }
+        ]
+      },
+      {
+        "title": "Blog",
+        "url": "/blog"
+      },
+      {
+        "title": "About",
+        "url": "/about"
+      },
+      {
+        "title": "Contact",
+        "url": "/contact"
+      }
+    ],
+    "footer": [
+      {
+        "title": "Shop",
+        "items": [
+          {
+            "title": "All Products",
+            "url": "/products"
+          },
+          {
+            "title": "New Arrivals",
+            "url": "/products/new"
+          },
+          {
+            "title": "Best Sellers",
+            "url": "/products/best-sellers"
+          },
+          {
+            "title": "Sale",
+            "url": "/products/sale"
+          }
+        ]
+      },
+      {
+        "title": "Information",
+        "items": [
+          {
+            "title": "About Us",
+            "url": "/about"
+          },
+          {
+            "title": "Blog",
+            "url": "/blog"
+          },
+          {
+            "title": "Contact",
+            "url": "/contact"
+          },
+          {
+            "title": "FAQs",
+            "url": "/faqs"
+          }
+        ]
+      },
+      {
+        "title": "Customer Service",
+        "items": [
+          {
+            "title": "Shipping & Returns",
+            "url": "/shipping-returns"
+          },
+          {
+            "title": "Privacy Policy",
+            "url": "/privacy-policy"
+          },
+          {
+            "title": "Terms & Conditions",
+            "url": "/terms"
+          }
+        ]
+      }
+    ],
+    "legal": [
+      {
+        "title": "Privacy Policy",
+        "url": "/privacy-policy"
+      },
+      {
+        "title": "Terms of Service",
+        "url": "/terms"
+      },
+      {
+        "title": "Returns Policy",
+        "url": "/returns"
+      },
+      {
+        "title": "Accessibility",
+        "url": "/accessibility"
+      }
+    ],
+    "social": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/ecostore",
+        "icon": "twitter"
+      },
+      {
+        "title": "Facebook",
+        "url": "https://facebook.com/EcoStore",
+        "icon": "facebook"
+      },
+      {
+        "title": "Instagram",
+        "url": "https://instagram.com/eco.store",
+        "icon": "instagram"
+      },
+      {
+        "title": "Pinterest",
+        "url": "https://pinterest.com/ecostore",
+        "icon": "pinterest"
+      }
+    ]
+  }

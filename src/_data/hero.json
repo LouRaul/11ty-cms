@@ -1,0 +1,18 @@
+{
+    "title": "Sustainable Living Made Simple",
+    "description": "Discover our collection of eco-friendly products designed to help you live more sustainably without compromising on style or convenience.",
+    "image": "/assets/images/hero-bg.jpg",
+    "buttons": [
+      {
+        "text": "Shop Now",
+        "url": "/products",
+        "primary": true,
+        "icon": true
+      },
+      {
+        "text": "Learn More",
+        "url": "/about",
+        "primary": false
+      }
+    ]
+  }

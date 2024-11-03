@@ -1,0 +1,39 @@
+{
+    "name": "eleventy-marketing-starter",
+    "version": "1.0.0",
+    "scripts": {
+        "dev:js": "esbuild src/assets/js/alpine.js --bundle --outfile=_site/assets/js/alpine.js --watch",
+        "build:js": "esbuild src/assets/js/alpine.js --bundle --minify --outfile=_site/assets/js/alpine.js",
+        "dev:css": "postcss src/assets/css/style.css -o _site/assets/css/style.css --watch",
+        "build:css": "postcss src/assets/css/style.css -o _site/assets/css/style.css",
+        "dev:11ty": "eleventy --serve",
+        "build:11ty": "eleventy",
+        "dev": "npm-run-all --parallel dev:*",
+        "build": "npm-run-all clean build:*",
+        "clean": "rimraf _site"
+    },
+    "dependencies": {
+        "alpinejs": "^3.13.3",
+        "decap-cms-app": "^3.1.0"
+    },
+    "devDependencies": {
+        "@11ty/eleventy": "^2.0.1",
+        "autoprefixer": "^10.4.16",
+        "esbuild": "^0.19.11",
+        "html-minifier": "^4.0.0",
+        "luxon": "^3.5.0",
+        "markdown-it": "^14.1.0",
+        "markdown-it-anchor": "^9.2.0",
+        "npm-run-all": "^4.1.5",
+        "postcss": "^8.4.31",
+        "postcss-cli": "^10.1.0",
+        "rimraf": "^5.0.5",
+        "tailwindcss": "^3.3.5",
+        "terser": "^5.26.0"
+    },
+    "browserslist": [
+        ">0.3%",
+        "not dead",
+        "not op_mini all"
+    ]
+}
