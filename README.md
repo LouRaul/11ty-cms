@@ -15,7 +15,7 @@ A starter template for building e-commerce and marketing sites with Eleventy, Al
 
 ## Prerequisites
 
-- Node.js (v20 or higher)
+- Node.js (v22 or higher)
 - npm or yarn
 
 ## Getting Started

@@ -37,5 +37,8 @@
         ">0.3%",
         "not dead",
         "not op_mini all"
-    ]
+    ],
+    "engines": {
+        "node": ">=22"
+    }
 }
