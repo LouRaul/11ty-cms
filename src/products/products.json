@@ -1,0 +1,3 @@
+{
+  "permalink": "/products/{{ title | slugify }}/index.html"
+}

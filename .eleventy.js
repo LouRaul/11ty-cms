@@ -1,7 +1,9 @@
-const htmlmin = require('html-minifier');
+const htmlmin = require('html-minifier-terser');
 const { DateTime } = require('luxon');
 const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
+const Image = require("@11ty/eleventy-img");
+const path = require("path");
 
 module.exports = function(eleventyConfig) {
   // Passthrough copy
@@ -164,10 +166,11 @@ module.exports = function(eleventyConfig) {
 
   const markdownLibrary = markdownIt(markdownOptions)
     .use(markdownItAnchor, {
-      permalink: true,
-      permalinkClass: 'anchor-link',
-      permalinkSymbol: '#',
-      permalinkSpace: false,
+      permalink: markdownItAnchor.permalink.headerLink({
+        safariReaderFix: true,
+        class: 'anchor-link',
+        symbol: '#',
+      }),
       level: [1, 2, 3],
       slugify: (s) => s
         .toLowerCase()
@@ -179,8 +182,39 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.setLibrary('md', markdownLibrary);
 
   // Shortcodes
-  eleventyConfig.addShortcode('image', function(src, alt, sizes = '100vw') {
-    return `<img src="${src}" alt="${alt}" sizes="${sizes}" loading="lazy" class="w-full h-auto">`;
+  eleventyConfig.addShortcode('image', async function(src, alt, sizes = '100vw', classes = 'w-full h-auto') {
+    if (alt === undefined) {
+      throw new Error(`Missing \`alt\` on myImage shortcode from: ${src}`);
+    }
+
+    let relativeSrc = src;
+    if (src.startsWith('/')) {
+      relativeSrc = path.join(__dirname, 'src', src);
+    } else if (!src.startsWith('http')) {
+      relativeSrc = path.join(path.dirname(this.page.inputPath), src);
+    }
+
+    try {
+      let metadata = await Image(relativeSrc, {
+        widths: [300, 600, 900, 1200, 1920],
+        formats: ["avif", "webp", "jpeg"],
+        outputDir: "./_site/assets/images/optimized/",
+        urlPath: "/assets/images/optimized/",
+      });
+
+      let imageAttributes = {
+        alt,
+        sizes,
+        loading: "lazy",
+        decoding: "async",
+        class: classes
+      };
+
+      return Image.generateHTML(metadata, imageAttributes);
+    } catch (e) {
+      console.error(`Error optimizing image ${relativeSrc}: ${e.message}`);
+      return `<img src="${src}" alt="${alt}" class="${classes}" loading="lazy">`;
+    }
   });
 
   eleventyConfig.addShortcode('year', () => `${new Date().getFullYear()}`);

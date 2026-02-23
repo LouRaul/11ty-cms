@@ -76,37 +76,6 @@ Alpine.store('nav', {
     }
 });
 
-// Global store for search functionality
-Alpine.store('search', {
-    isOpen: false,
-    query: '',
-    results: [],
-    loading: false,
-    
-    async search() {
-        if (!this.query) {
-            this.results = [];
-            return;
-        }
-        
-        this.loading = true;
-        // Simulate search delay
-        await new Promise(resolve => setTimeout(resolve, 300));
-        
-        // This would be replaced with actual search logic
-        this.results = [
-            // Sample results
-        ];
-        
-        this.loading = false;
-    },
-    
-    reset() {
-        this.query = '';
-        this.results = [];
-        this.isOpen = false;
-    }
-});
 
 // Custom directive for handling click outside
 Alpine.directive('click-outside', (el, { expression }, { evaluate }) => {

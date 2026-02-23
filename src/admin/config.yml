@@ -22,6 +22,7 @@ collections:
     folder: "src/products"
     create: true
     slug: "{{slug}}"
+    summary: "{{title}} - {{price}} ({{status}})"
     preview_path: "products/{{slug}}"
     editor:
       preview: true
@@ -100,6 +101,7 @@ collections:
     folder: "src/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} ({{date}})"
     preview_path: "blog/{{slug}}"
     editor:
       preview: true
@@ -129,20 +131,22 @@ collections:
   # Site Settings
   - name: "settings"
     label: "Settings"
+    delete: false
     files:
       # Contact Information
       - name: "contact"
         label: "Contact Information"
         file: "src/_data/contact.json"
+        description: "Manage your store's contact details and social media links"
         fields:
-          - {label: "Email", name: "email", widget: "string"}
-          - {label: "Phone", name: "phone", widget: "string"}
-          - {label: "Address", name: "address", widget: "text"}
-          - {label: "Business Hours", name: "hours", widget: "text"}
-          - {label: "Social Media", name: "social", widget: "object", fields: [
-              {label: "Facebook", name: "facebook", widget: "string"},
-              {label: "Twitter", name: "twitter", widget: "string"},
-              {label: "Instagram", name: "instagram", widget: "string"}
+          - {label: "Email Address", name: "email", widget: "string", hint: "Main contact email"}
+          - {label: "Phone Number", name: "phone", widget: "string"}
+          - {label: "Physical Address", name: "address", widget: "text"}
+          - {label: "Business Hours", name: "hours", widget: "text", hint: "e.g. Mon-Fri: 9am - 6pm"}
+          - {label: "Social Media Links", name: "social", widget: "object", fields: [
+              {label: "Facebook URL", name: "facebook", widget: "string", required: false},
+              {label: "Twitter URL", name: "twitter", widget: "string", required: false},
+              {label: "Instagram URL", name: "instagram", widget: "string", required: false}
             ]}
 
       # Site Information

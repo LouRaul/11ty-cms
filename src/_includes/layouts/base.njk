@@ -114,23 +114,6 @@
       }
     </script>
 
-    <!-- Alpine.js Init -->
-    <script>
-      document.addEventListener('alpine:init', () => {
-        Alpine.store('cart', {
-          items: [],
-          isOpen: false,
-          
-          init() {
-            const savedCart = localStorage.getItem('cart');
-            if (savedCart) {
-              this.items = JSON.parse(savedCart);
-            }
-          }
-        });
-      });
-    </script>
-
     {% if env.NODE_ENV === "production" and site.analytics.plausible.enabled %}
     <!-- Plausible Analytics -->
     <script defer data-domain="{{ site.analytics.plausible.domain }}" src="https://plausible.io/js/plausible.js"></script>
