@@ -1,0 +1,11 @@
+{
+  "email": "hello@ecostore.com",
+  "phone": "+1 (555) 123-4567",
+  "address": "123 Green Way, Eco City, EC 12345",
+  "hours": "Mon-Fri: 9am - 6pm, Sat: 10am - 4pm",
+  "social": {
+    "facebook": "https://facebook.com/ecostore",
+    "twitter": "https://twitter.com/ecostore",
+    "instagram": "https://instagram.com/ecostore"
+  }
+}

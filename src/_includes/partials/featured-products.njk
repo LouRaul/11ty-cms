@@ -1,32 +1,19 @@
-<section class="py-12 bg-gray-50" aria-labelledby="featured-heading">
-    <div class="container mx-auto px-4">
-        <h2 id="featured-heading" class="text-2xl font-bold text-center mb-8">Featured Products</h2>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {% for product in collections.featuredProducts | limit(4) %}
-            <div class="group">
-                <a href="{{ product.url }}" class="block">
-                    <div class="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden bg-gray-100">
-                        <img 
-                            src="{{ product.data.image }}" 
-                            alt="{{ product.data.title }}"
-                            class="w-full h-full object-cover transition duration-300 group-hover:scale-105"
-                            width="400"
-                            height="400"
-                            loading="lazy"
-                        >
-                    </div>
-                    <h3 class="mt-4 text-lg font-medium text-gray-900">{{ product.data.title }}</h3>
-                    <p class="mt-1 text-lg font-medium text-green-600">{{ product.data.price | formatPrice }}</p>
-                </a>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    {% for product in collections.featuredProducts | limit(4) %}
+    <div class="group">
+        <a href="{{ product.url }}" class="block">
+            <div class="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden bg-gray-100">
+                {% image product.data.image, product.data.title, "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw", "w-full h-full object-cover transition duration-300 group-hover:scale-105" %}
             </div>
-            {% endfor %}
-        </div>
-
-        <div class="text-center mt-8">
-            <a href="/products" class="inline-flex items-center px-6 py-3 rounded-lg bg-green-600 text-white hover:bg-green-700 transition duration-200">
-                View All Products
-            </a>
-        </div>
+            <h3 class="mt-4 text-lg font-medium text-gray-900">{{ product.data.title }}</h3>
+            <p class="mt-1 text-lg font-medium text-green-600">{{ product.data.price | formatPrice }}</p>
+        </a>
     </div>
-</section>
+    {% endfor %}
+</div>
+
+<div class="text-center mt-8">
+    <a href="/products" class="inline-flex items-center px-6 py-3 rounded-lg bg-green-600 text-white hover:bg-green-700 transition duration-200">
+        View All Products
+    </a>
+</div>
